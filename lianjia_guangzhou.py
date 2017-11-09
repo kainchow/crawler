@@ -1,3 +1,8 @@
+# -*-coding: utf-8 -*-
+# create time : 2017/10/15
+# author : kaichow
+
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
