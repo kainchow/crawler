@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-import codecs
 
+import codecs
 import requests
 from bs4 import BeautifulSoup
 
