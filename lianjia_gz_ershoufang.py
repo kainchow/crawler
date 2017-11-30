@@ -92,16 +92,18 @@ class Lianjia(object):
         return lianjia_area_data
 
     def get_all_house(self):
-        start_time = datetime.datetime.now()
+        start_time = datetime.datetime.now()  # 爬取开始的时间
         urls, areas = self.get_area_url_name()
         lianjia_area_datas = pd.DataFrame()
+        # 遍历每一个区域
         for i in range(len(urls)):
             lj_data = self.get_area_all_house(urls[i], areas[i])
             lj_data['area'] = areas[i]
             lianjia_area_datas = lianjia_area_datas.append(lj_data)
             print(areas[i] + '区所有数据已爬取！\n')
-        end_time = datetime.datetime.now()
-        run_time = (end_time - start_time).seconds
+        end_time = datetime.datetime.now()  # 爬取结束的时间
+        run_time = (end_time - start_time).seconds  # 爬取总时间
+        print('共计%s条数据。' % len(lianjia_area_datas))
         print('用时%s秒。' % run_time)
         return lianjia_area_datas
 
@@ -109,8 +111,8 @@ class Lianjia(object):
 if __name__ == '__main__':
     lj = Lianjia()
     lianjia_area_datas = lj.get_all_house()
-    columns = ['area', 'introduction', 'community', 'room_type', 'acreage', 'toward', 'decoration', 'elevator', 'floor',
-               'year', 'street', 'follow', 'visit', 'release_time', 'price', 'unit_price', 'url']
-    lianjia_area_datas = lianjia_area_datas.reindex(columns=columns)
-    lianjia_area_datas.index = range(len(lianjia_area_datas))
+    columns = ['area', 'street', 'community', 'introduction', 'room_type', 'acreage', 'price', 'unit_price', 'toward',
+               'decoration', 'elevator', 'floor', 'year', 'follow', 'visit', 'release_time', 'url']
+    lianjia_area_datas = lianjia_area_datas.reindex(columns=columns)  # 将数据列重新排序
+    lianjia_area_datas.index = range(len(lianjia_area_datas))  # 将DataFrame的index从0开始排
     lianjia_area_datas.to_csv('d:/lianjia_gz_ershoufang.csv')
